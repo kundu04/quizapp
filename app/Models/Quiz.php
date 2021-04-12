@@ -39,5 +39,9 @@ class Quiz extends Model
     {
         return Quiz::find($id)->update($data);
     }
+    public function deleteQuizById($id)
+    {
+        return Quiz::find($id)->delete();
+    }
 
 }

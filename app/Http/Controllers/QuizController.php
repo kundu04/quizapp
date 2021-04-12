@@ -86,7 +86,9 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        (new Quiz)->deleteQuizById($id);
+        return redirect()->route('quiz.index')->with('message','Quiz deleted successfully');
+
     }
 
     public function validateForm($request)

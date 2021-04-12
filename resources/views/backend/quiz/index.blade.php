@@ -38,11 +38,26 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="{{route('quiz.destroy',[$quiz->id])}}">
-                                    <button class="btn btn-danger">Delete</button>
-                                </a>
-                            </td>
+                                <form id="delete-form{{$quiz->id}}" action="{{route('quiz.destroy',[$quiz->id])}}" method="Post">
+                                    @csrf 
+                                    {{method_field('DELETE')}}
 
+                                </form>
+                                <a href="#" onclick="if(confirm('Do you want to delete?')){
+                                    event.preventDefault();
+                                    document.getElementById('delete-form{{$quiz->id}}').submit();
+
+                                }
+                                else{
+                                    event.preventDefault();
+                                }
+                                ">
+                                    <button type="submit" class="btn btn-danger">Delete</button></a>
+                                
+                            </td>
+                            <!-- <a href="{{route('quiz.destroy',[$quiz->id])}}">
+                                    <button class="btn btn-danger">Delete</button>
+                                </a> -->
                         </tr>
                         @endforeach
                         @else

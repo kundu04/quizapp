@@ -8,16 +8,16 @@
         @if(Session::has('message'))
             <div class="alert alert-success">{{Session::get('message')}}</div>
             @endif
-            <div class="module-head"><h3>All Quiz</h3></div>
+            <div class="module-head"><h3>All Question</h3></div>
 
             <div class="module-body">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>minutes</th>
+                            <th>Question</th>
+                            <th>Quiz</th>
+                            <th>Created at</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -25,33 +25,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($quizzes)>0)
-                        @foreach($quizzes as $key=>$quiz)
+                        @if(count($questions)>0)
+                        @foreach($questions as $key=>$ques)
                         <tr>
                             <td>{{$key+1}}</td>
-                            <td>{{$quiz->name}}</td>
-                            <td>{{$quiz->description}}</td>
-                            <td>{{$quiz->minutes}}</td>
+                            <td>{{$ques->name}}</td>
+                            <td>{{$ques->relQuiz->name}} quiz</td>
+                            <td>{{date('F d,Y',strtotime($ques->created_at))}}</td>
                             <td>
-                                <a href="{{route('quiz.question',[$quiz->id])}}">
-                                    <button class="btn btn-info">Show all question</button>
+                                <a href="{{route('question.show',[$ques->id])}}">
+                                    <button class="btn btn-info">View</button>
                                 </a>
-
                             </td>
                             <td>
-                                <a href="{{route('quiz.edit',[$quiz->id])}}">
+                                <a href="{{route('question.edit',[$ques->id])}}">
                                     <button class="btn btn-primary">Edit</button>
                                 </a>
                             </td>
                             <td>
-                                <form id="delete-form{{$quiz->id}}" action="{{route('quiz.destroy',[$quiz->id])}}" method="Post">
+                                <form id="delete-form{{$ques->id}}" action="{{route('question.destroy',[$ques->id])}}" method="Post">
                                     @csrf 
                                     {{method_field('DELETE')}}
 
                                 </form>
                                 <a href="#" onclick="if(confirm('Do you want to delete?')){
                                     event.preventDefault();
-                                    document.getElementById('delete-form{{$quiz->id}}').submit();
+                                    document.getElementById('delete-form{{$ques->id}}').submit();
 
                                 }
                                 else{
@@ -61,16 +60,15 @@
                                     <button type="submit" class="btn btn-danger">Delete</button></a>
                                 
                             </td>
-                            <!-- <a href="{{route('quiz.destroy',[$quiz->id])}}">
-                                    <button class="btn btn-danger">Delete</button>
-                                </a> -->
+                           
                         </tr>
                         @endforeach
                         @else
-                        <td>No quiz to display</td>
+                        <td>No question to display</td>
                         @endif
                     </tbody>
                 </table>
+                {{$questions->links()}}
             </div>
         </div>
     </div>

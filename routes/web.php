@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\QuizController;
+use App\Http\controllers\QuestionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,4 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::Resource('quiz',QuizController::class);
+Route::Resource('question',QuestionController::class);
+Route::get('quiz/{id}/questions',[QuizController::class,'question'])->name('quiz.question');
+
 

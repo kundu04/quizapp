@@ -44,4 +44,10 @@ class Quiz extends Model
         return Quiz::find($id)->delete();
     }
 
+    public function getAllQuestionByQuizId($id){
+        return Quiz::with('relQuestions')->where('id',$id)->get();
+    }
+
+   
+
 }

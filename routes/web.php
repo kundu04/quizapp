@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\QuizController;
 use App\Http\controllers\QuestionController;
+use App\Http\controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::Resource('quiz',QuizController::class);
 Route::Resource('question',QuestionController::class);
 Route::get('quiz/{id}/questions',[QuizController::class,'question'])->name('quiz.question');
-
+Route::Resource('user',UserController::class);
 

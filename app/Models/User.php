@@ -45,4 +45,45 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    private $limit=10;
+
+    public function storeUser($data)
+    {
+        $data['visible_password']=$data['password'];
+        $data['password']=bcrypt($data['password']);
+        
+        return User::create($data);
+    }
+
+    public function getAllUser()
+    {
+        return User::latest()->paginate($this->limit);
+    }
+
+    public function getUserById($id)
+    {
+        return User::find($id);
+    }
+
+    public function updateUserById($data,$id)
+    {
+        $user=User::find($id);
+        if($data['password']){
+        $user->visible_password=$data['password'];
+        $user->password=bcrypt($data['password']);
+        }
+        $user->name=$data['name'];
+        $user->email=$data['email'];
+        $user->occupation=$data['occupation'];
+        $user->address=$data['address'];
+        $user->phone=$data['phone'];
+        return $user->update();
+
+
+    }
+    public function deleteUserById($id)
+    {
+        return User::find($id)->delete();
+    }
 }

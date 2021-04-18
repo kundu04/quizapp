@@ -32,25 +32,7 @@
                @endforeach
             </div>
             <div class="module-foot">
-                
-                
-                                <form id="delete-form{{$quiz->id}}" action="{{route('question.destroy',[$quiz->id])}}" method="Post">
-                                    @csrf 
-                                    {{method_field('DELETE')}}
-
-                                </form>
-                <a href="#" onclick="if(confirm('Do you want to delete?')){
-                     event.preventDefault();
-                    document.getElementById('delete-form{{$quiz->id}}').submit();
-                    }
-                    else{
-                     event.preventDefault();
-                }">
-                <button type="submit" class="btn btn-danger pull-right">Delete</button>
-                </a>
-                <a href="{{route('question.edit',[$quiz->id])}}">
-                <button class="btn btn-primary pull-right">Edit</button>
-                </a>
+              
                 <a href="{{route('quiz.index')}}"><button type="submit" class="btn btn-inverse ">Back</button></a>
                 @endforeach            
                             

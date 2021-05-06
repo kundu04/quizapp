@@ -23,7 +23,7 @@ class Result extends Model
     // }
     public function relQuestion()
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Question::class, 'question_id', 'id');
     }
     // public function relQuiz()
     // {
@@ -31,7 +31,7 @@ class Result extends Model
     // }
     public function relAnswer()
     {
-        return $this->belongsTo(Answer::class);
+        return $this->belongsTo(Answer::class, 'answer_id', 'id');
     }
 
 

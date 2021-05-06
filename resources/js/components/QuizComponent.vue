@@ -8,7 +8,7 @@
                     </div>
 
                     <div class="card-body">
-
+                        <span class="float-right" style="color:red">{{times}}</span>
                         <div v-for="(question,index) in questions">
                         <div v-show="index===questionIndex">
                         {{question.name}}
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-
+const moment = require('moment');
     export default {
         props:['quizId','quizQuestion','hasQuizPlayed','time'],
         data(){
@@ -60,10 +60,25 @@
                 userResponses:Array(this.quizQuestion.length).fill(false),
                 correctQuestion:0,
                 currectAnswer:0,
+                clock:moment(this.time*60*1000)
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            setInterval(()=>{
+                this.clock=moment(this.clock.subtract(1,'seconds'))
+            },1000);
+            
+        },
+
+        computed:{
+            times:function(){
+                var minsec=this.clock.format('mm:ss');
+                if(minsec=='00:00'){
+                    alert('timeout!')
+                    window.location.reload();
+                }
+                return minsec
+            }
         },
        
         methods:{

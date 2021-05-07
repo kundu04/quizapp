@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row ">
         <div class="col-md-8">
         @if(Session::has('error'))
         <div class="alert alert-danger">
@@ -11,7 +11,7 @@
        
         @endif
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">Exam</div>
                 @if($isExamAssigned)
                 @foreach($quizzes as $quiz)
                 <div class="card-body">
@@ -37,6 +37,18 @@
                 @else
                     <p>You have not assigned any exam</p>
                 @endif
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header"> User Profile</div>
+                <div class="card-body">
+                <p>Email:{{auth()->user()->email}}</p>
+                <p>Occupation:{{auth()->user()->occupation}}</p>
+                <p>Address:{{auth()->user()->address}}</p>
+                <p>Phone:{{auth()->user()->phone}}</p>
+                </div>
             </div>
         </div>
     </div>

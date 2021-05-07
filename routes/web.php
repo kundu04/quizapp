@@ -40,8 +40,8 @@ Route::group(['middleware'=>'isAdmin'],function(){
     Route::post('exam/assign',[ExamController::class,'assignExamStore'])->name('exam.store');
     Route::get('exam/user',[ExamController::class,'userExam'])->name('exam.view');
     Route::post('exam/remove',[ExamController::class,'removeExam'])->name('exam.remove');
-
-
+    Route::get('result',[ExamController::class,'result'])->name('examResult');
+    Route::get('result/{userId}/{quizId}',[ExamController::class,'userQuizResult'])->name('results');
 });
 
 

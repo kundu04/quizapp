@@ -98,7 +98,7 @@ const moment = require('moment');
                }).length
            },
            postuserChoice(){
-               axios.post('create',{
+               axios.post('outcome',{
                    answerId:this.currectAnswer,
                    questionId:this.currectQuestion,
                    quizId:this.quizId

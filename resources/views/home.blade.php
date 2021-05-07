@@ -22,7 +22,7 @@
                    <p>
                    
                         @if(!in_array($quiz->id,$wasQuizCompleted))
-                        <a href="{{ url('/quiz',$quiz->id) }}">
+                        <a href="{{ url('question/quiz',$quiz->id) }}">
                             <button class="btn btn-success">Start Quiz
                             </button>
                         </a>

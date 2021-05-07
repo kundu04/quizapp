@@ -1980,7 +1980,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       }).length;
     },
     postuserChoice: function postuserChoice() {
-      axios.post('create', {
+      axios.post('outcome', {
         answerId: this.currectAnswer,
         questionId: this.currectQuestion,
         quizId: this.quizId

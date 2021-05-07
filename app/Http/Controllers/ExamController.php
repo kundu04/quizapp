@@ -48,11 +48,19 @@ class ExamController extends Controller
 
     public function getQuizQuestions(Request $request,$quizId){
         $authUser=auth()->user()->id;
+
+         //check if user has ben assigned a particular quiz
+         $userId=DB::table('quiz_user')->where('user_id',$authUser)
+         ->pluck('quiz_id')->toArray();
+         if(!in_array($quizId,$userId)){
+             return redirect()->to('/home')
+             ->with('error','You are not assigned this exam');
+         }
         $quiz=Quiz::find($quizId);
         $time=Quiz::where('id',$quizId)->value('minutes');
         $quizQuestion=Question::where('quiz_id',$quizId)->with('relAnswer')->get();
         $authUserHasPlayedQuiz=Result::where(['user_id'=>$authUser,'quiz_id'=>$quizId])->get();
-
+        
         //has user played particular quiz
         $wasCompleted=Result::where('user_id',$authUser)
         ->whereIn('quiz_id',(new Quiz)->hasQuizAttempt())
@@ -70,14 +78,7 @@ class ExamController extends Controller
         $quizId=$request['quizId'];
         $authUser=auth()->user();
 
-        //check if user has ben assigned a particular quiz
-        // $userId=DB::table('quiz_user')->where('user_id',$authUser)
-        // ->pluck('quiz_id')->toArray();
-        // dd($userId);
-        // if(!in_array($quizId,$userId)){
-        //     return redirect()->to('/home')
-        //     ->with('error','You are not assigned this exam');
-        // }
+       
 
         return $userQuestionAnswer=Result::updateOrCreate(
             ['user_id'=>$authUser->id,
